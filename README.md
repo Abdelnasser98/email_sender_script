@@ -5,4 +5,4 @@ also the token.json is going to be created in the intial use of the script, just
 
 Usage:
 
-The script is reading a list of emails from a Csv file and send thme an automated response.
+The script is reading a list of emails from a Csv file and send an automated response to each of them.
