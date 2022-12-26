@@ -1,3 +1,4 @@
+**Dev_Version
 This Script was made with Python 🐍 
 
 you will need the credentials File from your google console application to be able to access the Gmail Api
