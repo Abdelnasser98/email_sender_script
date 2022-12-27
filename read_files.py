@@ -1,9 +1,18 @@
-import pandas as pd
+import csv
+
+
 class ReadFiles:
 
-    def email_lists(self):
+    @staticmethod
+    def email_lists():
+        email_list =[]
+        with open('emails.csv', newline='') as i:
+            reader = csv.reader(i)
+            for row in reader:
 
-        data = pd.read_csv("emails.csv",)
-        emails = list(data['emails'])
+                if row[1] != 'emails':
+                    email_list.append(row[1])
+            return email_list
 
-        return emails
+# rf = ReadFiles()
+# rf.email_lists()

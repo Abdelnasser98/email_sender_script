@@ -6,12 +6,11 @@ from read_files import ReadFiles
 def main():
     gm = Gmail()
     rf = ReadFiles()
+    emails = rf.email_lists()
 
-    email_list = rf.email_lists()
+    for email in emails:
+        gm.send_message(email)
 
-    for i in email_list:
-        gm.send_message(i)
-    print('Finished')
 
 if __name__ == '__main__':
     main()
