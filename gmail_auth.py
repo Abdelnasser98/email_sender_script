@@ -1,3 +1,4 @@
+import google
 from google.oauth2.credentials import Credentials
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -11,31 +12,28 @@ from read_files import ReadFiles
 
 
 class Gmail:
-    @staticmethod
-    def credentials():
-        creds = None
+    def __init__(self):
+        self.creds = None
         SCOPES = ['https://mail.google.com/', "https://www.googleapis.com/auth/gmail.send"]
         if os.path.exists('token.json'):
-            creds = Credentials.from_authorized_user_file('token.json', SCOPES)
-        if not creds or not creds.valid:
-            if creds and creds.expired and creds.refresh_token:
-                creds.refresh(Request())
+            self.creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+        if not self.creds or not self.creds.valid:
+            if self.creds and self.creds.expired and self.creds.refresh_token:
+                self.creds.refresh(Request())
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
                     'credentials.json', SCOPES
                 )
-                creds = flow.run_local_server(port=0)
+                self.creds = flow.run_local_server(port=0)
                 with open('token.json', 'w') as token:
-                    token.write(creds.to_json())
+                    token.write(self.creds.to_json())
 
-        return creds
+
 
 
     def send_message(self, email):
-        gm = Gmail()
-        creds = gm.credentials()
         try:
-            service = build('gmail', 'v1', credentials=creds)
+            service = build('gmail', 'v1', credentials=self.creds)
             message = EmailMessage()
             message.set_content('''
                    This is an automated email from the python script made by mohammed nasser
