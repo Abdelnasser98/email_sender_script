@@ -7,11 +7,11 @@ import base64
 from email.message import EmailMessage
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from email_service_model import EmailServiceModel
+
 from read_files import ReadFiles
 
 
-class Gmail(EmailServiceModel):
+class Gmail:
     def __init__(self):
         self.creds = None
         SCOPES = ['https://mail.google.com/', "https://www.googleapis.com/auth/gmail.send"]
@@ -28,11 +28,16 @@ class Gmail(EmailServiceModel):
                 with open('token.json', 'w') as token:
                     token.write(self.creds.to_json())
 
-    def send_message(self, email, body):
+
+
+
+    def send_message(self, email):
         try:
             service = build('gmail', 'v1', credentials=self.creds)
             message = EmailMessage()
-            message.set_content(body)
+            message.set_content('''
+                   This is an automated email from the python script made by mohammed nasser
+               ''')
 
             message['To'] = email
             message['From'] = ''
